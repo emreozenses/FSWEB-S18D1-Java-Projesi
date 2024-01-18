@@ -34,8 +34,9 @@ public class BurgerDaoImpl implements BurgerDao{
     }
 
     @Override
-    public Optional<Burger> findById(Long id) {
-        return Optional.ofNullable(entityManager.find(Burger.class,id));
+    public Burger findById(Long id) {
+       return entityManager.find(Burger.class,id);
+
     }
 
     @Override
@@ -64,7 +65,7 @@ public class BurgerDaoImpl implements BurgerDao{
     @Override
     public List<Burger> findByContent(String content) {
         TypedQuery<Burger> query = entityManager
-                .createQuery("SELECT b FROM Burger b WHERE b.contents LIKE CONCAT('%',':content','%') ORDER BY b.name desc", Burger.class);
+                .createQuery("SELECT b FROM Burger b WHERE b.contents LIKE CONCAT('%',:content,'%') ORDER BY b.name desc", Burger.class);
         query.setParameter("content",content);
         return query.getResultList();
     }
@@ -78,10 +79,10 @@ public class BurgerDaoImpl implements BurgerDao{
     @Transactional
     @Override
     public Burger remove(Long id) {
-        Optional<Burger> burger = findById(id);
-        if(burger.isPresent()){
+        Burger burger = findById(id);
+        if(burger != null){
             entityManager.remove(burger);
-            return burger.get();
+            return burger;
         }
         throw new BurgerException("Burger with given id is not exist"+id, HttpStatus.NOT_FOUND);
     }

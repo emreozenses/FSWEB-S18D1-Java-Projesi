@@ -10,7 +10,7 @@ import java.util.Set;
 public interface BurgerDao {
 
     Burger save(Burger burger);
-    Optional<Burger> findById(Long id);
+    Burger findById(Long id);
     List<Burger> findAll();
     List<Burger> findByPrice(double price);
     List<Burger> findByBreadType(BreadType breadType);
