@@ -12,8 +12,8 @@ public interface BurgerDao {
     Burger save(Burger burger);
     Optional<Burger> findById(Long id);
     List<Burger> findAll();
-    Set<Burger> findByPrice(double price);
-    Set<Burger> findByBreadType(BreadType breadType);
+    List<Burger> findByPrice(double price);
+    List<Burger> findByBreadType(BreadType breadType);
     List<Burger> findByContent(String content);
     Burger update(Burger burger);
     Burger remove(Long id);
